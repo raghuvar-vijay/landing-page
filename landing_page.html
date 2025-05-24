@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIRA - Make exams accessible for every student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f4b942;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f4b942;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-signin {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .btn-signin:hover {
+            color: #f4b942;
+        }
+
+        .btn-primary {
+            background: #f4b942;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #e6a73a;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #f4b942;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #f4b942;
+            color: #1a1a1a;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="window" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="%23333"/><rect x="1" y="1" width="18" height="18" fill="%23444"/><rect x="2" y="2" width="16" height="16" fill="%23555"/></pattern></defs><rect width="100" height="100" fill="url(%23window)"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f4b942 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-image {
+            position: relative;
+            background: url('test.jpg') center/cover;
+            height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: #1a1a1a;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #2d2d2d;
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #404040;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f4b942, transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(244, 185, 66, 0.2);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #f4b942;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: #2d2d2d;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #404040;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .close {
+            color: #cccccc;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #f4b942;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Exam Interface */
+        .exam-interface {
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .exam-header {
+            background: #ffffff;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-breadcrumb {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .exam-breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exam-content {
+            padding: 2rem;
+            background: #ffffff;
+            color: #333;
+        }
+
+        .exam-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .exam-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .exam-actions button {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .exam-actions button:hover {
+            background: #e9ecef;
+        }
+
+        .exam-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .exam-info-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .exam-info-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question-header {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-type {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-options {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .question-options li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .add-question-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .add-question-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Student Management */
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: #ffffff;
+            color: #333;
+        }
+
+        .students-table th,
+        .students-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .students-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .students-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .edit-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background: #218838;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .faq-subtitle {
+            text-align: center;
+            color: #cccccc;
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            background: #333333;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #404040;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #cccccc;
+        }
+
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f4b942 0%, #e6a73a 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta .btn-primary {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .cta .btn-primary:hover {
+            background: #333333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .students-table {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">LIRA</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" class="btn-signin">Sign in</a>
+                <a href="#" class="btn-primary">Get started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Make exams accessible for every student</h1>
+                <div class="hero-description">
+                    <p>Create inclusive assessments tailored for all abilities, including visual, auditory, and motor needs.</p>
+                    <p>No special training needed—just intuitive tools for equitable education.</p>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="openModal('demoModal')">Get started</button>
+                    <button class="btn-secondary" onclick="openModal('featuresModal')">Learn more</button>
+                </div>
+            </div>
+            <div class="hero-image"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="fade-in">Create and schedule exams with ease</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in" onclick="openModal('uploadModal')">
+                    <div class="feature-icon">📋</div>
+                    <h3>Upload exams</h3>
+                    <p>Upload exams in PDF and Lira automatically extracts questions and converts it to be accessible</p>
+                </div>
+                <div class="feature-card fade-in" onclick="openModal('manageModal')">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Manage Students</h3>
+                    <p>Assign specific assistance to students based on their disability</p>
+                </div>
+                <div class="feature-card fade-in" onclick="openModal('scheduleModal')">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Schedule exams</h3>
+                    <p>Specify the exam schedule and assign the students for that exam.</p>
+                </div>
+                <div class="feature-card fade-in" onclick="openModal('downloadModal')">
+                    <div class="feature-icon">📥</div>
+                    <h3>Download results</h3>
+                    <p>After the exam is finished, the each student answer sheet can be downloaded in a PDF file.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="faq-container">
+            <h2 class="fade-in">FAQs</h2>
+            <p class="faq-subtitle fade-in">Answers to questions you might have about Lira.</p>
+            <div class="faq-list">
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What does Lira do?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Lira is an accessible exam creation platform that helps educators create inclusive assessments for students with diverse abilities. It automatically converts traditional exams into accessible formats and provides customized assistance based on individual student needs.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Who is Lira for?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Lira is designed for educators, schools, and educational institutions who want to create inclusive learning environments. It's perfect for teachers who need to accommodate students with visual, auditory, motor, or cognitive disabilities.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How secure is my data on Lira?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We take data security seriously. All data is encrypted in transit and at rest, we comply with educational privacy standards like FERPA, and we never share your data with third parties. Your exam content and student information remain completely private and secure.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is Lira easy to use if you're not technical?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Lira is designed with educators in mind, not tech experts. Our intuitive interface requires no special training - simply upload your existing exams, and Lira handles the accessibility conversion automatically. Our step-by-step guidance makes it easy for anyone to create inclusive assessments.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="fade-in">
+            <h2>Ready to get started?</h2>
+            <p>Take the first step to make accessible assessments for all</p>
+            <button class="btn-primary" onclick="openModal('demoModal')">Get started</button>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Exams</h2>
+                <span class="close" onclick="closeModal('uploadModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #cccccc; margin-bottom: 2rem;">Upload your PDF exams and let Lira automatically extract and convert questions to accessible formats.</p>
+                <div class="features-grid" style="margin-bottom: 2rem;">
+                    <div style="text-align: center; color: #cccccc;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
+                        <h3>PDF Upload</h3>
+                        <p>Simply drag and drop your exam PDFs</p>
+                    </div>
+                    <div style="text-align: center; color: #cccccc;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                        <h3>Auto Conversion</h3>
+                        <p>Questions are automatically extracted and formatted</p>
+                    </div>
+                    <div style="text-align: center; color: #cccccc;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">♿</div>
+                        <h3>Accessibility</h3>
+                        <p>Content is optimized for screen readers and assistive technology</p>
+                    </div>
+                </div>
+                <button class="btn-primary">Try Upload Demo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="featuresModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Real-time insights for faster decisions</h2>
+                <span class="close" onclick="closeModal('featuresModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="exam-interface">
+                    <div class="exam-header">
+                        <div class="exam-breadcrumb">
+                            <a href="#">Exams</a> > <a href="#">English 1</a> > 1st term
+                        </div>
+                        <div style="font-weight: 600;">1st term</div>
+                    </div>
+                    <div class="exam-content">
+                        <div class="success-message">
+                            <span>✓</span>
+                            <span>Question has been added successfully</span>
+                        </div>
+                        
+                        <div class="exam-section">
+                            <h3>
+                                General Information
+                                <div class="exam-actions">
+                                    <button title="Delete">🗑️</button>
+                                    <button title="Edit">✏️</button>
+                                </div>
+                            </h3>
+                            <div class="exam-info">
+                                <div class="exam-info-item">
+                                    <span class="exam-info-label">Term:</span>
+                                    <span>1st term</span>
+                                </div>
+                                <div class="exam-info-item">
+                                    <span class="exam-info-label">Duration:</span>
+                                    <span>1:30 hr</span>
+                                </div>
+                                <div class="exam-info-item">
+                                    <span class="exam-info-label">Subject:</span>
+                                    <span>Nouns, Pronouns & adjectives</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exam-section">
+                            <h3>
+                                ¿This is an example of a question?
+                                <div class="exam-actions">
+                                    <button title="Delete">🗑️</button>
+                                    <button title="Edit">✏️</button>
+                                </div>
+                            </h3>
+                            <div class="question">
+                                <div class="question-type">Checkboxes</div>
+                                <ul class="question-options">
+                                    <li>a) Answer 1</li>
+                                    <li>b) Answer 2</li>
+                                    <li>c) Answer 3</li>
+                                    <li>d) Answer 4</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="exam-section">
+                            <h3>
+                                ¿This is an example of a question?
+                                <div class="exam-actions">
+                                    <button title="Delete">🗑️</button>
+                                    <button title="Edit">✏️</button>
+                                </div>
+                            </h3>
+                            <div class="question">
+                                <div class="question-type">Multiple choice</div>
+                                <ul class="question-options">
+                                    <li>a) Answer 1</li>
+                                    <li>b) Answer 2</li>
+                                    <li>c) Answer 3</li>
+                                    <li>d) Answer 4</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="add-question-btn">Add new question</button>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; color: #cccccc;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📤</div>
+                        <h4>Upload exams</h4>
+                        <p style="font-size: 0.9rem;">Uploading PDF file of exam automatically extracts the questions</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">✏️</div>
+                        <h4>Edit questions</h4>
+                        <p style="font-size: 0.9rem;">Edit or add questions at the preview page to confirm the extracted questions</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏰</div>
+                        <h4>Schedule exams</h4>
+                        <p style="font-size: 0.9rem;">After confirming the extracted questions, you can schedule the exam with date and time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Assign customised assistance to students</h2>
+                <span class="close" onclick="closeModal('manageModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="exam-interface">
+                    <div class="exam-header">
+                        <div class="exam-breadcrumb">
+                            <a href="#">Groups</a> > Group 6A
+                        </div>
+                        <div style="font-weight: 600;">Group 6A</div>
+                    </div>
+                    <div class="exam-content">
+                        <div class="success-message">
+                            <span>✓</span>
+                            <span>Students have been added successfully</span>
+                        </div>
+                        
+                        <h3 style="margin-bottom: 1rem; color: #333;">Students</h3>
+                        
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>Student name ▼</th>
+                                    <th>Assistance required ▼</th>
+                                    <th>Assistance required ▼</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matt Jeffrey</td>
+                                    <td>Additional time (5 min / hr)</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Kevin Johannes</td>
+                                    <td>Additional time (15 min / hr)</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Ayako Robinson</td>
+                                    <td>Computer: voice to text/text to voice</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Mary Jones</td>
+                                    <td>Reader (reading to candidate)</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Linda Burns</td>
+                                    <td>Large print</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Beverly Holmes</td>
+                                    <td>Scribe</td>
+                                    <td><button class="edit-btn">Edit ▼</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; color: #cccccc;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">👥</div>
+                        <h4>Add students to groups</h4>
+                        <p style="font-size: 0.9rem;">Students can be assigned to groups. Makes it easier to assign exams to the group</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                        <h4>Assign assistance</h4>
+                        <p style="font-size: 0.9rem;">Assign assistance to each individual student</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📝</div>
+                        <h4>Create groups</h4>
+                        <p style="font-size: 0.9rem;">Groups are like class groups like 6A, 6B etc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Schedule Exams</h2>
+                <span class="close" onclick="closeModal('scheduleModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #cccccc; margin-bottom: 2rem;">Set exam schedules and assign students with their specific accommodations automatically applied.</p>
+                
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 style="color: #333; margin-bottom: 1rem;">Schedule New Exam</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label style="color: #333; font-weight: 600;">Exam Name:</label>
+                            <input type="text" placeholder="1st Term English" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-top: 0.25rem;">
+                        </div>
+                        <div>
+                            <label style="color: #333; font-weight: 600;">Date:</label>
+                            <input type="date" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-top: 0.25rem;">
+                        </div>
+                        <div>
+                            <label style="color: #333; font-weight: 600;">Time:</label>
+                            <input type="time" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-top: 0.25rem;">
+                        </div>
+                        <div>
+                            <label style="color: #333; font-weight: 600;">Duration:</label>
+                            <select style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-top: 0.25rem;">
+                                <option>1 hour</option>
+                                <option>1.5 hours</option>
+                                <option>2 hours</option>
+                                <option>3 hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #333; font-weight: 600;">Assign Groups:</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="color: #333;"><input type="checkbox" style="margin-right: 0.5rem;">Group 6A</label>
+                            <label style="color: #333;"><input type="checkbox" style="margin-right: 0.5rem;">Group 6B</label>
+                            <label style="color: #333;"><input type="checkbox" style="margin-right: 0.5rem;">Group 7A</label>
+                        </div>
+                    </div>
+                    <button class="btn-primary">Schedule Exam</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; color: #cccccc;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+                        <h4>Easy Scheduling</h4>
+                        <p style="font-size: 0.9rem;">Set date, time, and duration with a simple interface</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                        <h4>Auto Accommodations</h4>
+                        <p style="font-size: 0.9rem;">Student accommodations are automatically applied based on their profiles</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">👥</div>
+                        <h4>Group Assignment</h4>
+                        <p style="font-size: 0.9rem;">Assign entire groups or individual students to exams</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Download Results</h2>
+                <span class="close" onclick="closeModal('downloadModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #cccccc; margin-bottom: 2rem;">After exam completion, download individual student answer sheets and class reports in PDF format.</p>
+                
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 style="color: #333; margin-bottom: 1rem;">Recent Exam Results</h3>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 4px; border: 1px solid #e9ecef;">
+                            <div>
+                                <h4 style="color: #333; margin: 0;">1st Term English - Group 6A</h4>
+                                <p style="color: #666; margin: 0; font-size: 0.9rem;">Completed: March 15, 2024 | 24 students</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">📊 Class Report</button>
+                                <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">📄 Individual Sheets</button>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 4px; border: 1px solid #e9ecef;">
+                            <div>
+                                <h4 style="color: #333; margin: 0;">Mathematics Quiz - Group 7A</h4>
+                                <p style="color: #666; margin: 0; font-size: 0.9rem;">Completed: March 12, 2024 | 18 students</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">📊 Class Report</button>
+                                <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">📄 Individual Sheets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; color: #cccccc;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+                        <h4>Individual Sheets</h4>
+                        <p style="font-size: 0.9rem;">Download each student's answer sheet with their accommodations applied</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                        <h4>Class Reports</h4>
+                        <p style="font-size: 0.9rem;">Get comprehensive class performance analytics and statistics</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+                        <h4>Secure Storage</h4>
+                        <p style="font-size: 0.9rem;">All results are securely stored and accessible anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Get Started with LIRA</h2>
+                <span class="close" onclick="closeModal('demoModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #cccccc; margin-bottom: 2rem;">Ready to make your exams accessible? Choose how you'd like to begin:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: #333; padding: 2rem; border-radius: 12px; text-align: center; border: 2px solid transparent; transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.borderColor='#f4b942'" 
+                         onmouseout="this.style.borderColor='transparent'">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                        <h3 style="color: #ffffff; margin-bottom: 1rem;">Start Free Trial</h3>
+                        <p style="color: #cccccc; margin-bottom: 1.5rem;">Try LIRA with full features for 14 days. No credit card required.</p>
+                        <button class="btn-primary" style="width: 100%;">Start Free Trial</button>
+                    </div>
+                    
+                    <div style="background: #333; padding: 2rem; border-radius: 12px; text-align: center; border: 2px solid transparent; transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.borderColor='#f4b942'" 
+                         onmouseout="this.style.borderColor='transparent'">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📞</div>
+                        <h3 style="color: #ffffff; margin-bottom: 1rem;">Schedule Demo</h3>
+                        <p style="color: #cccccc; margin-bottom: 1.5rem;">Book a personalized demo with our accessibility experts.</p>
+                        <button class="btn-secondary" style="width: 100%;">Book Demo</button>
+                    </div>
+                </div>
+
+                <div style="background: #2d2d2d; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f4b942;">
+                    <h4 style="color: #f4b942; margin-bottom: 0.5rem;">🎓 Perfect for educators who want to:</h4>
+                    <ul style="color: #cccccc; margin: 0; padding-left: 1.5rem;">
+                        <li>Create inclusive assessments quickly</li>
+                        <li>Support students with diverse learning needs</li>
+                        <li>Comply with accessibility standards</li>
+                        <li>Save time on exam preparation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // FAQ functionality
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').classList.remove('active');
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+
+        // Add floating animation to feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Simulate form interactions
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#f4b942';
+                this.style.boxShadow = '0 0 0 2px rgba(244, 185, 66, 0.2)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#ddd';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add success message simulation for demo buttons
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.textContent.includes('Start Free Trial') || this.textContent.includes('Book Demo')) {
+                    e.preventDefault();
+                    
+                    const originalText = this.textContent;
+                    this.textContent = '✓ Success!';
+                    this.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.background = '';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Add keyboard navigation for modals
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openModal = document.querySelector('.modal[style*="block"]');
+                if (openModal) {
+                    openModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add stagger animation to feature cards
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
